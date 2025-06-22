@@ -1,5 +1,3 @@
-version: '3.8'
-
 services:
   postgres:
     image: postgres:15
@@ -16,6 +14,21 @@ services:
       - ./database:/docker-entrypoint-initdb.d
     networks:
       - backend
+  servico-autenticacao:
+    container_name: autenticacao_api
+    build:
+      context: .
+      dockerfile: src/ServicoDomestico.Autenticacao.Api/Dockerfile
+    ports:
+      - "8080:80"
+    depends_on:
+      - postgres
+    networks:
+      - backend
+    environment:
+      ASPNETCORE_ENVIRONMENT: Development
+      ConnectionStrings__Postgres: "Host=postgres;Port=${POSTGRES_PORT};Database=${POSTGRES_DB};Username=${POSTGRES_USER};Password=${POSTGRES_PASSWORD}"
+
 
 volumes:
   pgdata:
