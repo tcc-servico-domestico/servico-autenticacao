@@ -66,6 +66,8 @@
               "version": "[9.0.5, )"
             },
             "Microsoft.EntityFrameworkCore.Tools": {
+              "include": "Runtime, Build, Native, ContentFiles, Analyzers, BuildTransitive",
+              "suppressParent": "All",
               "target": "Package",
               "version": "[9.0.6, )"
             }
@@ -143,6 +145,12 @@
       "frameworks": {
         "net9.0": {
           "targetAlias": "net9.0",
+          "dependencies": {
+            "AutoMapper.Extensions.Microsoft.DependencyInjection": {
+              "target": "Package",
+              "version": "[12.0.1, )"
+            }
+          },
           "imports": [
             "net461",
             "net462",
@@ -209,6 +217,12 @@
       "frameworks": {
         "net9.0": {
           "targetAlias": "net9.0",
+          "dependencies": {
+            "Microsoft.Extensions.DependencyInjection.Abstractions": {
+              "target": "Package",
+              "version": "[8.0.0, )"
+            }
+          },
           "imports": [
             "net461",
             "net462",
@@ -258,6 +272,9 @@
           "net9.0": {
             "targetAlias": "net9.0",
             "projectReferences": {
+              "C:\\Users\\u00431\\Desktop\\TCC\\servico-autenticacao\\src\\ServicoDomestico.Autenticacao.Application\\ServicoDomestico.Autenticacao.Application.csproj": {
+                "projectPath": "C:\\Users\\u00431\\Desktop\\TCC\\servico-autenticacao\\src\\ServicoDomestico.Autenticacao.Application\\ServicoDomestico.Autenticacao.Application.csproj"
+              },
               "C:\\Users\\u00431\\Desktop\\TCC\\servico-autenticacao\\src\\ServicoDomestico.Autenticacao.Domain\\ServicoDomestico.Autenticacao.Domain.csproj": {
                 "projectPath": "C:\\Users\\u00431\\Desktop\\TCC\\servico-autenticacao\\src\\ServicoDomestico.Autenticacao.Domain\\ServicoDomestico.Autenticacao.Domain.csproj"
               }
@@ -281,6 +298,12 @@
           "targetAlias": "net9.0",
           "dependencies": {
             "Microsoft.EntityFrameworkCore": {
+              "target": "Package",
+              "version": "[9.0.6, )"
+            },
+            "Microsoft.EntityFrameworkCore.Design": {
+              "include": "Runtime, Build, Native, ContentFiles, Analyzers, BuildTransitive",
+              "suppressParent": "All",
               "target": "Package",
               "version": "[9.0.6, )"
             },

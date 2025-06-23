@@ -1,14 +1,40 @@
+using Microsoft.EntityFrameworkCore;
+using ServicoDomestico.Autenticacao.Application.Interfaces;
+using ServicoDomestico.Autenticacao.Infrastructure.Data;
+using ServicoDomestico.Autenticacao.Infrastructure.Repositories;
+
 var builder = WebApplication.CreateBuilder(args);
 
-// Add services to the container.
-// Learn more about configuring OpenAPI at https://aka.ms/aspnet/openapi
-builder.Services.AddOpenApi();
+builder.WebHost.ConfigureKestrel(options =>
+{
+    options.ListenAnyIP(80);
+});
+
+// Banco de dados
+builder.Services.AddDbContext<AppDbContext>(options =>
+    options.UseNpgsql(builder.Configuration.GetConnectionString("Postgres")));
+
+// Injeção de dependência
+builder.Services.AddScoped<IUsuarioRepository, UsuarioRepository>();
+
+// Controllers
+builder.Services.AddControllers();
+builder.Services.AddEndpointsApiExplorer();
 
 var app = builder.Build();
 
-// Configure the HTTP request pipeline.
-if (app.Environment.IsDevelopment())
+// Endpoints
+app.MapGet("/", () => "API funcionando!");
+app.MapGet("/ping-db", async (AppDbContext db) =>
 {
-    app.MapOpenApi();
-}
+    var canConnect = await db.Database.CanConnectAsync();
+    return canConnect ? "Conexão OK!" : "Falha na conexão";
+});
+
+
+app.MapControllers(); // Aqui está o uso que precisa do AddControllers()
+
+app.Run();
+
+
 

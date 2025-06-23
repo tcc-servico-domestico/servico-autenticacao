@@ -11,6 +11,12 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ServicoDomestico.Autenticac
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ServicoDomestico.Autenticacao.Infrastructure", "ServicoDomestico.Autenticacao.Infrastructure\ServicoDomestico.Autenticacao.Infrastructure.csproj", "{03B0D699-C240-4F7A-A73B-69415BC69533}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "ServicoDomestico.Autenticacao.Infrastructure", "ServicoDomestico.Autenticacao.Infrastructure", "{18AACC7C-4B1C-4B57-9BDC-217131BD583B}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "CrossCutting", "CrossCutting", "{C15C4209-8052-7D39-A916-ECE79BF74D3D}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ServicoDomestico.Autenticacao.CrossCutting", "ServicoDomestico.Autenticacao.Infrastructure\CrossCutting\ServicoDomestico.Autenticacao.CrossCutting\ServicoDomestico.Autenticacao.CrossCutting.csproj", "{8412D271-6685-45FD-9299-55DCAC471380}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -69,8 +75,27 @@ Global
 		{03B0D699-C240-4F7A-A73B-69415BC69533}.Release|x64.Build.0 = Release|Any CPU
 		{03B0D699-C240-4F7A-A73B-69415BC69533}.Release|x86.ActiveCfg = Release|Any CPU
 		{03B0D699-C240-4F7A-A73B-69415BC69533}.Release|x86.Build.0 = Release|Any CPU
+		{8412D271-6685-45FD-9299-55DCAC471380}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8412D271-6685-45FD-9299-55DCAC471380}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8412D271-6685-45FD-9299-55DCAC471380}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{8412D271-6685-45FD-9299-55DCAC471380}.Debug|x64.Build.0 = Debug|Any CPU
+		{8412D271-6685-45FD-9299-55DCAC471380}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{8412D271-6685-45FD-9299-55DCAC471380}.Debug|x86.Build.0 = Debug|Any CPU
+		{8412D271-6685-45FD-9299-55DCAC471380}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8412D271-6685-45FD-9299-55DCAC471380}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8412D271-6685-45FD-9299-55DCAC471380}.Release|x64.ActiveCfg = Release|Any CPU
+		{8412D271-6685-45FD-9299-55DCAC471380}.Release|x64.Build.0 = Release|Any CPU
+		{8412D271-6685-45FD-9299-55DCAC471380}.Release|x86.ActiveCfg = Release|Any CPU
+		{8412D271-6685-45FD-9299-55DCAC471380}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{C15C4209-8052-7D39-A916-ECE79BF74D3D} = {18AACC7C-4B1C-4B57-9BDC-217131BD583B}
+		{8412D271-6685-45FD-9299-55DCAC471380} = {C15C4209-8052-7D39-A916-ECE79BF74D3D}
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {73DDA7B4-2D63-4545-91F7-B4056A1A918C}
 	EndGlobalSection
 EndGlobal
