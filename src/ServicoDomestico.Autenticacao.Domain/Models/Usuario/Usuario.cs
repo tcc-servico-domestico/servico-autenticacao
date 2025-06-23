@@ -10,6 +10,6 @@ namespace ServicoDomestico.Autenticacao.Domain.Models.Usuario
         public string Senha { get; set; } = string.Empty;
         public DateTime DataCriacao { get; set; }
 
-        public ICollection<Permissao.Permissao> Permissoes { get; set; }
+        public ICollection<Permissao.Permissao> Permissoes { get; set; } = new List<Permissao.Permissao>();
     }
 }

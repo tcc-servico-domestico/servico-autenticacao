@@ -22,18 +22,8 @@ namespace ServicoDomestico.Autenticacao.Domain.Interfaces.Repositories.Base
         Task<IEnumerable<T>> Buscar(string tsql, object parametros = null);
         Task<T> Obter(string tsql, object parametros = null);
         Task<TT> Obter<TT>(string tsql, object parametros = null);
-        Task<int> BuscarContratoGrupoTipo(int contratoTipoId);
         
         Task<bool> ExisteCadastro(string query, object parametros = null);
-        /// <summary>
-        /// Verifica se os registros informados pelo campo "ids" da tabela informada pelo campo "nomeTabela" estão referenciados por constraint de chave estrangeira em alguma tabela da base de dados
-        /// </summary>
-        /// <param name="nomeTabela">Tabela para verificação</param>
-        /// <param name="ids">lista de ids para verificação separados por vírgula</param>
-        /// <param name="tabelasDesconsiderar">lista de tabelas para desconsiderar separadas por vírgula</param>
-        /// <returns>Lista com referências ao registro na base de dados</returns>
-        Task<IEnumerable<string>> BuscarReferenciasChaveEstrangeira(string nomeTabela, string ids,
-            string tabelasDesconsiderar);
 
         Task<ICollection<TResult>> Buscar<TResult>(Expression<Func<T, bool>> where, ICollection<string> inclusoes,
             Expression<Func<T, TResult>> projecao, bool asNoTracking = false);

@@ -131,19 +131,6 @@ namespace ServicoDomestico.Autenticacao.Domain.Service
             return await _leituraRepository.Buscar(where, inclusoes, projecao, asNoTracking, orderBy, orderByDesc);
         }
 
-        public async Task<IEnumerable<string>> BuscarReferenciasChaveEstrangeira(string nomeTabela, string ids,
-            string tabelasDesconsiderar)
-        {
-            if (_leituraRepository is null) return new List<string>();
-            return await _leituraRepository.BuscarReferenciasChaveEstrangeira(nomeTabela, ids, tabelasDesconsiderar);
-        }
-
-        public Task<int> BuscarContratoGrupoTipo(int contratoTipoId)
-        {
-            if (_leituraRepository is null) return Task.FromResult(0);
-            return _leituraRepository.BuscarContratoGrupoTipo(contratoTipoId);
-        }
-
         public Task<bool> ExisteAsync(Expression<Func<T, bool>> predicate)
         {
             if (_leituraRepository is null) return null;

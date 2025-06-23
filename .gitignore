@@ -1,3 +1,7 @@
 .vs/
 /.env
 .github
+
+bin
+obj
+packages

@@ -1,12 +1,24 @@
+using Microsoft.Data.SqlClient;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Options;
+using ServicoDomestico.Autenticacao.Domain.Interfaces.Context;
+using ServicoDomestico.Autenticacao.Domain.Interfaces.Utils;
 using ServicoDomestico.Autenticacao.Domain.Models;
+using ServicoDomestico.Autenticacao.Domain.Models.LogAcesso;
+using ServicoDomestico.Autenticacao.Domain.Models.Permissao;
+using ServicoDomestico.Autenticacao.Domain.Models.Pessoa;
+using ServicoDomestico.Autenticacao.Domain.Models.Possui;
+using ServicoDomestico.Autenticacao.Domain.Models.Telefone;
+using ServicoDomestico.Autenticacao.Domain.Models.Token;
+using ServicoDomestico.Autenticacao.Domain.Models.TrabalhadorDomestico;
+using ServicoDomestico.Autenticacao.Domain.Models.Usuario;
+using System.Data;
 
-namespace ServicoDomestico.Autenticacao.Infrastructure.Data
+namespace ServicoDomestico.Autenticacao.Infrastructure.Data.Context
 {
-    public class AppDbContext : DbContext
+    public class AutenticacaoDbContext : DomainDbContext, IAutenticacaoDbContext
     {
-
-        public AppDbContext(DbContextOptions<AppDbContext> options) : base(options) { }
+        public AutenticacaoDbContext(DbContextOptions<AutenticacaoDbContext> options) : base(options) { }
 
         public DbSet<Pessoa> Pessoas { get; set; }
         public DbSet<Telefone> Telefones { get; set; }
@@ -19,6 +31,8 @@ namespace ServicoDomestico.Autenticacao.Infrastructure.Data
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+            modelBuilder.ApplyConfigurationsFromAssembly(typeof(AutenticacaoDbContext).Assembly);
+
             base.OnModelCreating(modelBuilder);
 
             // Pessoa - Telefone (1:N)
@@ -45,12 +59,6 @@ namespace ServicoDomestico.Autenticacao.Infrastructure.Data
             // Usuario - Possui (N:N) via Possui
             modelBuilder.Entity<Possui>()
                 .HasKey(p => new { p.UsuarioId, p.PermissaoId });
-
-            modelBuilder.Entity<Possui>()
-                .HasOne(p => p.Usuario)
-                .WithMany(u => u.Permissoes)
-                .HasForeignKey(p => p.UsuarioId)
-                .OnDelete(DeleteBehavior.Restrict);
 
             modelBuilder.Entity<Possui>()
                 .HasOne(p => p.Permissao)
@@ -88,6 +96,32 @@ namespace ServicoDomestico.Autenticacao.Infrastructure.Data
             modelBuilder.Entity<Token>()
                 .Property(t => t.DataCriacao)
                 .HasDefaultValueSql("NOW()");
+        }
+
+
+        /// <summary>
+        /// Retorna uma nova conexão independente.
+        /// Essa conexão deve receber dispose
+        /// </summary>
+        /// <returns>Uma instância da implementação de IDbConnection</returns>
+        public override IDbConnection RetornaNovaConexao()
+        {
+            return new SqlConnection(Database.GetConnectionString());
+        }
+
+        public override IDbConnection RetornaNovaConexao(string stringDeConexao)
+        {
+            return new SqlConnection(stringDeConexao);
+        }
+
+        /// <summary>
+        /// Essa conexão é a conexão do EF
+        /// Essa conexão não deve receber dispose
+        /// </summary>
+        /// <returns>Uma instância da implementação de IDbConnection</returns>
+        public override IDbConnection RetornaConexao()
+        {
+            return Database.GetDbConnection();
         }
     }
 }

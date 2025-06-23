@@ -1,6 +1,6 @@
 using Microsoft.EntityFrameworkCore;
-using ServicoDomestico.Autenticacao.Application.Interfaces;
-using ServicoDomestico.Autenticacao.Infrastructure.Data;
+using ServicoDomestico.Autenticacao.Domain.Interfaces;
+using ServicoDomestico.Autenticacao.Infrastructure.Data.Context;
 using ServicoDomestico.Autenticacao.Infrastructure.Repositories;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -11,7 +11,7 @@ builder.WebHost.ConfigureKestrel(options =>
 });
 
 // Banco de dados
-builder.Services.AddDbContext<AppDbContext>(options =>
+builder.Services.AddDbContext<AutenticacaoDbContext>(options =>
     options.UseNpgsql(builder.Configuration.GetConnectionString("Postgres")));
 
 // Injeção de dependência
@@ -25,7 +25,7 @@ var app = builder.Build();
 
 // Endpoints
 app.MapGet("/", () => "API funcionando!");
-app.MapGet("/ping-db", async (AppDbContext db) =>
+app.MapGet("/ping-db", async (AutenticacaoDbContext db) =>
 {
     var canConnect = await db.Database.CanConnectAsync();
     return canConnect ? "Conexão OK!" : "Falha na conexão";

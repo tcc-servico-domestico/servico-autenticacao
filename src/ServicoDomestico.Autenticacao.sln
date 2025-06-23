@@ -11,8 +11,6 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ServicoDomestico.Autenticac
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ServicoDomestico.Autenticacao.Infrastructure", "ServicoDomestico.Autenticacao.Infrastructure\ServicoDomestico.Autenticacao.Infrastructure.csproj", "{03B0D699-C240-4F7A-A73B-69415BC69533}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "ServicoDomestico.Autenticacao.Infrastructure", "ServicoDomestico.Autenticacao.Infrastructure", "{18AACC7C-4B1C-4B57-9BDC-217131BD583B}"
-EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "CrossCutting", "CrossCutting", "{C15C4209-8052-7D39-A916-ECE79BF74D3D}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ServicoDomestico.Autenticacao.CrossCutting", "ServicoDomestico.Autenticacao.Infrastructure\CrossCutting\ServicoDomestico.Autenticacao.CrossCutting\ServicoDomestico.Autenticacao.CrossCutting.csproj", "{8412D271-6685-45FD-9299-55DCAC471380}"
@@ -92,7 +90,6 @@ Global
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
-		{C15C4209-8052-7D39-A916-ECE79BF74D3D} = {18AACC7C-4B1C-4B57-9BDC-217131BD583B}
 		{8412D271-6685-45FD-9299-55DCAC471380} = {C15C4209-8052-7D39-A916-ECE79BF74D3D}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
