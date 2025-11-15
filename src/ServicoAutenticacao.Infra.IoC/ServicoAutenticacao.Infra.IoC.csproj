@@ -1,0 +1,19 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net9.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="9.0.11" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\ServicoAutenticacao.Domain\ServicoAutenticacao.Domain.csproj" />
+    <ProjectReference Include="..\ServicoAutenticacao.Infra.CrossCutting\ServicoAutenticacao.Infra.CrossCutting.csproj" />
+    <ProjectReference Include="..\ServicoAutenticacao.Infra.Data\ServicoAutenticacao.Infra.Data.csproj" />
+  </ItemGroup>
+
+</Project>

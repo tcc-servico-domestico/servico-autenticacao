@@ -1,0 +1,30 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>net9.0</TargetFramework>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <UserSecretsId>d4796c97-353f-48ed-8f97-af20cc5038c3</UserSecretsId>
+    <DockerDefaultTargetOS>Linux</DockerDefaultTargetOS>
+    <DockerComposeProjectPath>..\docker-compose.dcproj</DockerComposeProjectPath>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.AspNetCore.Mvc.NewtonsoftJson" Version="9.0.11" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="9.0.11">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
+    <PackageReference Include="Microsoft.VisualStudio.Azure.Containers.Tools.Targets" Version="1.22.1" />
+    <PackageReference Include="Newtonsoft.Json" Version="13.0.4" />
+    <PackageReference Include="Swashbuckle.AspNetCore" Version="10.0.1" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\ServicoAutenticacao.Domain\ServicoAutenticacao.Domain.csproj" />
+    <ProjectReference Include="..\ServicoAutenticacao.Infra.CrossCutting\ServicoAutenticacao.Infra.CrossCutting.csproj" />
+    <ProjectReference Include="..\ServicoAutenticacao.Infra.Data\ServicoAutenticacao.Infra.Data.csproj" />
+    <ProjectReference Include="..\ServicoAutenticacao.Infra.IoC\ServicoAutenticacao.Infra.IoC.csproj" />
+  </ItemGroup>
+
+</Project>

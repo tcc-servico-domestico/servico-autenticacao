@@ -1,37 +1,73 @@
 services:
-  postgres:
-    image: postgres:15
-    container_name: postgres_db
-    restart: always
-    ports:
-      - "${POSTGRES_PORT}:5432"
-    environment:
-      POSTGRES_DB: ${POSTGRES_DB}
-      POSTGRES_USER: ${POSTGRES_USER}
-      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
-    volumes:
-      - pgdata:/var/lib/postgresql/data
-      - ./database:/docker-entrypoint-initdb.d
-    networks:
-      - backend
-  servico-autenticacao:
-    container_name: autenticacao_api
+  servicoautenticacao.api:
+    image: ${DOCKER_REGISTRY-}servicoautenticacaoapi
+    container_name: servicoautenticacao.api
     build:
       context: .
-      dockerfile: src/ServicoDomestico.Autenticacao.Api/Dockerfile
+      dockerfile: src/ServicoAutenticacao.Api/Dockerfile
+    networks:
+      - api-network
+
+  servicoautenticacao.db:
+    image: postgres:latest
+    container_name: servicoautenticacao.db
+    restart: always
+    ports:
+      - "5432:5432"
+    environment:
+      - POSTGRES_DB=ServicoAutenticacaoDB
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
+    networks:
+      - api-network
+
+  pgadmin:
+    image: dpage/pgadmin4
+    restart: always
+    container_name: pgadmin
+    environment:
+      PGADMIN_DEFAULT_EMAIL: marcosfas.dev@gmail.com
+      PGADMIN_DEFAULT_PASSWORD: admin
     ports:
       - "8080:80"
     depends_on:
-      - postgres
+      - servicoautenticacao.db
     networks:
-      - backend
+      - api-network
+  
+  zoo:
+    image: confluentinc/cp-zookeeper:latest
+    hostname: zoo
+    container_name: zoo
+    ports:
+      - "2181:2181"
     environment:
-      ASPNETCORE_ENVIRONMENT: Development
-      ConnectionStrings__Postgres: "Host=postgres;Port=${POSTGRES_PORT};Database=${POSTGRES_DB};Username=${POSTGRES_USER};Password=${POSTGRES_PASSWORD}"
+      ZOOKEEPER_CLIENT_PORT: 2181
+      ZOOKEEPER_SERVER_ID: 1
+      ZOOKEEPER_SERVERS: zoo:2888:3888
+    networks:
+      - api-network
 
+  kafka:
+    image: confluentinc/cp-kafka:7.4.0
+    hostname: kafka
+    container_name: kafka
+    ports:
+      - "9092:9092"
+    environment:
+      KAFKA_BROKER_ID: 1
+      KAFKA_ZOOKEEPER_CONNECT: zoo:2181
+      KAFKA_ADVERTISED_LISTENERS: PLAINTEXT://kafka:9092
+      KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR: 1
+    depends_on:
+      - zoo
+    networks:
+      - api-network
 
 volumes:
-  pgdata:
+  db_data:
+    driver: local
 
 networks:
-  backend:
+  api-network:
+    driver: bridge
