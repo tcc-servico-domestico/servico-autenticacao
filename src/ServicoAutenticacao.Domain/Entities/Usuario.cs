@@ -6,9 +6,13 @@ namespace ServicoAutenticacao.Domain.Entities
     {
         public required string Email { get; set; }
         public required string Senha { get; set; }
-        public required bool Ativo { get; set; }
-        public DateTime? DataAtualizacao { get; set; }
-        public DateTime? DataCriacao { get; set; }
+        public required bool Ativo { get; set; } = false;
+        public required bool EmailVerificado { get; set; } = false;
         public DateTime? DataUltimaAlteracaoSenha { get; set; }
+
+        public void DefinirEmailVerificado()
+        {
+            EmailVerificado = true;
+        }
     }
 }

@@ -1,6 +1,7 @@
 ﻿using ServicoAutenticacao.Domain.Entities.Base;
 using ServicoAutenticacao.Domain.Interfaces.Repositories.Base;
 using ServicoAutenticacao.Domain.Interfaces.Services.Base;
+using System.Linq.Expressions;
 
 namespace ServicoAutenticacao.Domain.Services.Base
 {
@@ -30,9 +31,9 @@ namespace ServicoAutenticacao.Domain.Services.Base
             return _repository.ExcluirAsync(entidade);
         }
 
-        public Task<IEnumerable<T>> BuscarAsnc()
+        public Task<IEnumerable<T>> BuscarAsync(Expression<Func<T, bool>> where)
         {
-            return _repository.BuscarAsnc();
+            return _repository.BuscarAsync(where);
         }
 
         public Task<T?> ObterPorIdAsync(Guid id)

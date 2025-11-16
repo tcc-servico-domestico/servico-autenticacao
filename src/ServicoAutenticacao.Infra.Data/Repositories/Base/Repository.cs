@@ -5,6 +5,7 @@ using ServicoAutenticacao.Domain.Entities.Base;
 using ServicoAutenticacao.Domain.Interfaces.Repositories.Base;
 using ServicoAutenticacao.Infra.Data.Context;
 using System.Data;
+using System.Linq.Expressions;
 
 namespace ServicoAutenticacao.Infra.Data.Repositories.Base
 {
@@ -22,9 +23,9 @@ namespace ServicoAutenticacao.Infra.Data.Repositories.Base
             ConnectionStringContexto = Contexto.Database.GetDbConnection().ConnectionString;
         }
 
-        public async Task<IEnumerable<T>> BuscarAsnc()
+        public async Task<IEnumerable<T>> BuscarAsync(Expression<Func<T, bool>> where)
         {
-            return await Entidades.ToListAsync();
+            return await Entidades.Where(where).ToListAsync();
         }
 
         public async Task<T?> ObterPorIdAsync(Guid id)

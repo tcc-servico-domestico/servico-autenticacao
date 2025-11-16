@@ -13,7 +13,7 @@ namespace ServicoAutenticacao.Infra.Data.Context.Configurations
             builder.Property(s => s.Email).IsRequired().HasMaxLength(150);
             builder.Property(s => s.Senha).IsRequired().HasMaxLength(150);
             builder.Property(s => s.Ativo).IsRequired();
-            builder.Property(s => s.DataCriacao).HasDefaultValue(DateTime.Now);
+            builder.Property(s => s.DataCriacao).IsRequired();
             builder.Property(s => s.DataAtualizacao);
             builder.Property(s => s.DataUltimaAlteracaoSenha);
         }

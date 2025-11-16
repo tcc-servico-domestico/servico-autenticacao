@@ -1,4 +1,5 @@
 ﻿using ServicoAutenticacao.Domain.Entities.Base;
+using System.Linq.Expressions;
 
 namespace ServicoAutenticacao.Domain.Interfaces.Services.Base
 {
@@ -6,7 +7,7 @@ namespace ServicoAutenticacao.Domain.Interfaces.Services.Base
     {
         Task<IEnumerable<T>> ObterTodosAsync();
         Task<T?> ObterPorIdAsync(Guid id);
-        Task<IEnumerable<T>> BuscarAsnc();
+        Task<IEnumerable<T>> BuscarAsync(Expression<Func<T, bool>> where);
         Task<T> AdicionarAsync(T entidade);
         Task<T> AtualizarAsync(T entidade);
         Task<T> ExcluirAsync(Guid id);

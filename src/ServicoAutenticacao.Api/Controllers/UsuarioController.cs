@@ -1,3 +1,4 @@
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using ServicoAutenticacao.Domain.Entities;
 using ServicoAutenticacao.Domain.Interfaces.Services;
@@ -31,17 +32,24 @@ namespace ServicoAutenticacao.Api.Controllers
             return retorno;
         }
 
-        [HttpGet("buscar")]
-        public async Task<IEnumerable<Usuario>> BuscarAsync([FromBody] string parametros)
-        {
-            var retorno = await _service.BuscarAsnc();
-            return retorno;
-        }
+        //[HttpGet("buscar")]
+        //public async Task<IEnumerable<Usuario>> BuscarAsync([FromBody] string parametros)
+        //{
+        //    var retorno = await _service.BuscarAsync();
+        //    return retorno;
+        //}
 
         [HttpPost]
-        public async Task AdicionarAsync([FromBody] Usuario entidade)
+        public async Task<Usuario> AdicionarAsync([FromBody] Usuario entidade)
         {
-            await _service.AdicionarAsync(entidade);
+            return await _service.AdicionarAsync(entidade);
+        }
+
+        [HttpGet("confirmar-email/{token}")]
+        [AllowAnonymous]
+        public async Task ConfirmarEmailAsync(string token)
+        {
+            await _service.ConfirmarEmailAsync(token);
         }
     }
 }

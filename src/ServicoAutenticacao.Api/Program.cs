@@ -9,7 +9,6 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.Configure<AppSettings>(builder.Configuration);
 var appSettings = builder.Configuration.Get<AppSettings>() ?? new AppSettings();
 
-// Add services to the container.
 builder.Services
     .AddControllers()
     .AddNewtonsoftJson(options =>
@@ -18,7 +17,6 @@ builder.Services
             new CamelCasePropertyNamesContractResolver();
     });
 
-// Swagger (Swashbuckle)
 builder.Services.AddSwaggerGen();
 builder.Services.ResolveDependencias(appSettings);
 
