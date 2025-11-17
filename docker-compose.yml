@@ -1,18 +1,39 @@
 services:
-  servicoautenticacao.api:
-    image: ${DOCKER_REGISTRY-}servicoautenticacaoapi
-    container_name: servicoautenticacao.api
+  services-autenticacao.db:
+    image: postgres:latest
+    container_name: services-autenticacao.db
+    restart: always
+    ports:
+      - "5433:5432"
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: ServicoAutenticacaoDB
+    networks:
+      - services-network-autenticacao
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres -d ServicoAutenticacaoDB"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+
+  servico-autenticacao-api:
     build:
       context: .
       dockerfile: src/ServicoAutenticacao.Api/Dockerfile
+    container_name: 
+    environment:
+      - ConnectionStrings__ServicoAutenticacaoDB=Host=services-autenticacao.db;Port=5432;Database=ServicoAutenticacaoDB;Username=postgres;Password=postgres;Include Error Detail=true
+      - ASPNETCORE_ENVIRONMENT=Development
+    ports:
+      - "8080:8080"
+    depends_on:
+      services-autenticacao.db:
+        condition: service_healthy
     networks:
-      - services-network
-
-
-volumes:
-  db_data:
-    driver: local
+      - services-network-autenticacao
 
 networks:
-  services-network:
+  services-network-autenticacao:
+    name: services-network-autenticacao
     external: true

@@ -1,4 +1,4 @@
-﻿using ServicoAutenticacaoDB.Infra.CrossCutting.AppSettings;
+﻿using ServicoAutenticacao.Infra.CrossCutting.AppSettings;
 
 namespace ServicoAutenticacao.Infra.CrossCutting.AppSettings
 {

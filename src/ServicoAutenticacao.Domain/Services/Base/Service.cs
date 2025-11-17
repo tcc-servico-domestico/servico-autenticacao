@@ -14,12 +14,12 @@ namespace ServicoAutenticacao.Domain.Services.Base
             _repository = repository;
         }
 
-        public Task<T> AdicionarAsync(T entidade)
+        public virtual Task<T> AdicionarAsync(T entidade)
         {
             return _repository.AdicionarAsync(entidade);
         }
 
-        public Task<T> AtualizarAsync(T entidade)
+        public virtual Task<T> AtualizarAsync(T entidade)
         {
             return _repository.AtualizarAsync(entidade);
         }

@@ -1,6 +1,6 @@
 ﻿using ServicoAutenticacao.Infra.CrossCutting.AppSettings.Mensageria;
 
-namespace ServicoAutenticacaoDB.Infra.CrossCutting.AppSettings
+namespace ServicoAutenticacao.Infra.CrossCutting.AppSettings
 {
     public class MensageriaAppSettings
     {

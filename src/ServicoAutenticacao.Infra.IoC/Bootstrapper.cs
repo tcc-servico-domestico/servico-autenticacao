@@ -2,10 +2,13 @@
 using ServicoAutenticacao.Domain.Interfaces.Context;
 using ServicoAutenticacao.Domain.Interfaces.Repositories;
 using ServicoAutenticacao.Domain.Interfaces.Services;
+using ServicoAutenticacao.Domain.Interfaces.Mensageria;
 using ServicoAutenticacao.Domain.Services;
 using ServicoAutenticacao.Infra.CrossCutting.AppSettings;
+using ServicoAutenticacao.Infra.CrossCutting.Mensageria;
 using ServicoAutenticacao.Infra.Data.Context;
 using ServicoAutenticacao.Infra.Data.Repositories;
+
 
 namespace ServicoAutenticacao.Infra.IoC
 {
@@ -49,9 +52,9 @@ namespace ServicoAutenticacao.Infra.IoC
             
         }
 
-        public static void RegistrarInjecaoDependenciasIntegracoes(this IServiceCollection services)
+        private static void RegistrarInjecaoDependenciasIntegracoes(this IServiceCollection services)
         {
-            
+            services.AddSingleton<IEventProducer, EventProducer>();
         }
     }
 }

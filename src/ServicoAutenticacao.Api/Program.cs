@@ -22,25 +22,41 @@ builder.Services.ResolveDependencias(appSettings);
 
 var app = builder.Build();
 
+using (var scope = app.Services.CreateScope())
+{
+    var services = scope.ServiceProvider;
+
+    try
+    {
+        var context = services.GetRequiredService<ServicoAutenticacaoDbContext>();
+
+        var retries = 10;
+
+        while (retries > 0)
+        {
+            try
+            {
+                await context.Database.MigrateAsync();
+                break;
+            }
+            catch
+            {
+                retries--;
+                await Task.Delay(2000);
+            }
+        }
+    }
+    catch (Exception ex)
+    {
+        var logger = services.GetRequiredService<ILogger<Program>>();
+        logger.LogError(ex, "Ocorreu um erro ao aplicar as migrations.");
+    }
+}
+
 if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();
     app.UseSwaggerUI();
-
-    using (var scope = app.Services.CreateScope())
-    {
-        var services = scope.ServiceProvider;
-        try
-        {
-            var context = services.GetRequiredService<ServicoAutenticacaoDbContext>();
-            await context.Database.MigrateAsync();
-        }
-        catch (Exception ex)
-        {
-            var logger = services.GetRequiredService<ILogger<Program>>();
-            logger.LogError(ex, "Ocorreu um erro ao aplicar as migrations.");
-        }
-    }
 }
 
 app.UseHttpsRedirection();

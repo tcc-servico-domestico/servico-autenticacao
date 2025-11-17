@@ -18,26 +18,12 @@ namespace ServicoAutenticacao.Api.Controllers
             _service = service;
         }
 
-        [HttpGet]
-        public async Task<IEnumerable<Usuario>> ObterTodosAsnyc()
-        {
-            var retorno = await _service.ObterTodosAsync();
-            return retorno;
-        }
-
         [HttpGet("{id}")]
         public async Task<Usuario?> ObterPorIdAsync(Guid id)
         {
             var retorno = await _service.ObterPorIdAsync(id);
             return retorno;
         }
-
-        //[HttpGet("buscar")]
-        //public async Task<IEnumerable<Usuario>> BuscarAsync([FromBody] string parametros)
-        //{
-        //    var retorno = await _service.BuscarAsync();
-        //    return retorno;
-        //}
 
         [HttpPost]
         public async Task<Usuario> AdicionarAsync([FromBody] Usuario entidade)
