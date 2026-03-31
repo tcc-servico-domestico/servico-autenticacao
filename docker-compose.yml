@@ -1,39 +1,17 @@
 services:
-  services-autenticacao.db:
-    image: postgres:latest
-    container_name: services-autenticacao.db
-    restart: always
-    ports:
-      - "5433:5432"
-    environment:
-      POSTGRES_USER: postgres
-      POSTGRES_PASSWORD: postgres
-      POSTGRES_DB: ServicoAutenticacaoDB
-    networks:
-      - services-network-autenticacao
-    healthcheck:
-      test: ["CMD-SHELL", "pg_isready -U postgres -d ServicoAutenticacaoDB"]
-      interval: 5s
-      timeout: 5s
-      retries: 5
-
-  servico-autenticacao-api:
+  servico.autenticacao.api:
     build:
       context: .
       dockerfile: src/ServicoAutenticacao.Api/Dockerfile
-    container_name: 
+    container_name: servico.autenticacao.api
     environment:
-      - ConnectionStrings__ServicoAutenticacaoDB=Host=services-autenticacao.db;Port=5432;Database=ServicoAutenticacaoDB;Username=postgres;Password=postgres;Include Error Detail=true
       - ASPNETCORE_ENVIRONMENT=Development
+      - DOTNET_ENVIRONMENT=Development
     ports:
-      - "8080:8080"
-    depends_on:
-      services-autenticacao.db:
-        condition: service_healthy
+      - "8083:8080"
     networks:
       - services-network-autenticacao
 
 networks:
   services-network-autenticacao:
     name: services-network-autenticacao
-    external: true

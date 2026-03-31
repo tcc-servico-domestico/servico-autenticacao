@@ -25,6 +25,7 @@ var app = builder.Build();
 using (var scope = app.Services.CreateScope())
 {
     var services = scope.ServiceProvider;
+    var logger = services.GetRequiredService<ILogger<Program>>();
 
     try
     {
@@ -39,16 +40,16 @@ using (var scope = app.Services.CreateScope())
                 await context.Database.MigrateAsync();
                 break;
             }
-            catch
+            catch (Exception ex)
             {
                 retries--;
+                logger.LogError(ex, "Ocorreu um erro ao aplicar as migrations.");
                 await Task.Delay(2000);
             }
         }
     }
     catch (Exception ex)
     {
-        var logger = services.GetRequiredService<ILogger<Program>>();
         logger.LogError(ex, "Ocorreu um erro ao aplicar as migrations.");
     }
 }
