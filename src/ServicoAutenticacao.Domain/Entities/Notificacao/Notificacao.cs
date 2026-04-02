@@ -1,3 +1,5 @@
+using ServicoAutenticacao.Domain.Entities.Base;
+
 namespace ServicoAutenticacao.Domain.Entities
 {
     public class Notificacao
@@ -11,5 +13,7 @@ namespace ServicoAutenticacao.Domain.Entities
         public DateTime? DataCriacao { get; set; } = DateTime.UtcNow;
         public required int MaxTentativas { get; set; }
         public required Guid PessoaId { get; set; }
+
+        public virtual ICollection<NotificacaoEndereco> Enderecos { get; set; } = new List<NotificacaoEndereco>();
     }
 }

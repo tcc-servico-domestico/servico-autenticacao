@@ -35,6 +35,10 @@ namespace ServicoAutenticacao.Domain.Services
 
         public override async Task<Usuario> AdicionarAsync(Usuario usuario)
         {
+            var usuarioExistente = (await _repository.BuscarAsync(x => x.Email == usuario.Email)).FirstOrDefault();
+            if (usuarioExistente is not null)
+                throw new Exception("Usuário já existe!");
+
             //Adiciona usuário
             var usuarioAdd = await base.AdicionarAsync(usuario);
             
@@ -45,11 +49,22 @@ namespace ServicoAutenticacao.Domain.Services
                 {
                     PessoaId = usuarioAdd.Id,
                     CanalId = new Guid("06972b6e-b170-401c-a07f-686becf4bf6a"),
-                    TemplateId = new Guid("ba83654b-3e0e-4376-925b-c5c9883b502e"),
+                    TemplateId = new Guid("77a20167-0cb4-4415-8b41-92cf4c227637"),
                     Titulo = "Confirmação de E-mail - HTML",
                     Mensagem = "Confirmação de Email - HTML",
                     DataAgendamento = DateTime.UtcNow,
-                    MaxTentativas = 3
+                    MaxTentativas = 3,
+                    Enderecos = new List<NotificacaoEndereco>
+                    {
+                        new NotificacaoEndereco
+                        {
+                            Endereco = new Endereco() 
+                            {
+                                Valor = usuarioAdd.Email,
+                                TipoId = new Guid("ecd4aea4-abdb-4f24-b5ef-21c462d5d09a")
+                            }
+                        }
+                    }
                 }));
             
             return usuarioAdd;
