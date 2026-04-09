@@ -1,24 +1,21 @@
-﻿using ServicoAutenticacao.Domain.Entities;
-using ServicoAutenticacao.Domain.Interfaces.Services;
-using ServicoAutenticacao.Domain.Interfaces.Repositories;
-using ServicoAutenticacao.Domain.Services.Base;
-using ServicoAutenticacao.Domain.Interfaces;
-using ServicoAutenticacao.Domain.Interfaces.Mensageria;
 using Newtonsoft.Json;
+using ServicoAutenticacao.Domain.Entities;
+using ServicoAutenticacao.Domain.Interfaces.Mensageria;
+using ServicoAutenticacao.Domain.Interfaces.Repositories;
+using ServicoAutenticacao.Domain.Interfaces.Services;
+using ServicoAutenticacao.Domain.Services.Base;
 
 namespace ServicoAutenticacao.Domain.Services
 {
     public class UsuarioService : Service<Usuario>, IUsuarioService
     {
-        //private readonly ICriptografica _criptografica;
         private readonly IEventProducer _eventProducer;
 
         public UsuarioService(
-            IUsuarioRepository repository, 
-            IEventProducer eventProducer) 
-            : base(repository) 
+            IUsuarioRepository repository,
+            IEventProducer eventProducer)
+            : base(repository)
         {
-            //_criptografica = criptografica;
             _eventProducer = eventProducer;
         }
 
@@ -39,10 +36,8 @@ namespace ServicoAutenticacao.Domain.Services
             if (usuarioExistente is not null)
                 throw new Exception("Usuário já existe!");
 
-            //Adiciona usuário
             var usuarioAdd = await base.AdicionarAsync(usuario);
-            
-            //Envia email
+
             await _eventProducer.ProduceAsync(
                 "adicionar-notificacao",
                 JsonConvert.SerializeObject(new Notificacao
@@ -58,7 +53,7 @@ namespace ServicoAutenticacao.Domain.Services
                     {
                         new NotificacaoEndereco
                         {
-                            Endereco = new Endereco() 
+                            Endereco = new Endereco()
                             {
                                 Valor = usuarioAdd.Email,
                                 TipoId = new Guid("ecd4aea4-abdb-4f24-b5ef-21c462d5d09a")
@@ -66,7 +61,7 @@ namespace ServicoAutenticacao.Domain.Services
                         }
                     }
                 }));
-            
+
             return usuarioAdd;
         }
     }

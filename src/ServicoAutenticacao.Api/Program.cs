@@ -1,5 +1,6 @@
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.EntityFrameworkCore;
 using Newtonsoft.Json.Serialization;
+using ServicoAutenticacao.Application;
 using ServicoAutenticacao.Infra.CrossCutting.AppSettings;
 using ServicoAutenticacao.Infra.Data.Context;
 using ServicoAutenticacao.Infra.IoC;
@@ -18,7 +19,8 @@ builder.Services
     });
 
 builder.Services.AddSwaggerGen();
-builder.Services.ResolveDependencias(appSettings);
+builder.Services.AddInfra(appSettings);
+builder.Services.AddApplication();
 
 var app = builder.Build();
 
@@ -69,3 +71,4 @@ app.MapControllers();
 app.UseWelcomePage("/");
 
 app.Run();
+

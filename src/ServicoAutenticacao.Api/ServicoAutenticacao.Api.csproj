@@ -21,6 +21,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\ServicoAutenticacao.Application\ServicoAutenticacao.Application.csproj" />
     <ProjectReference Include="..\ServicoAutenticacao.Domain\ServicoAutenticacao.Domain.csproj" />
     <ProjectReference Include="..\ServicoAutenticacao.Infra.CrossCutting\ServicoAutenticacao.Infra.CrossCutting.csproj" />
     <ProjectReference Include="..\ServicoAutenticacao.Infra.Data\ServicoAutenticacao.Infra.Data.csproj" />

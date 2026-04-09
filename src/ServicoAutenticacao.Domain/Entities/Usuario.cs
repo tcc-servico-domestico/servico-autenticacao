@@ -13,6 +13,7 @@ namespace ServicoAutenticacao.Domain.Entities
         public void DefinirEmailVerificado()
         {
             EmailVerificado = true;
+            Ativo = true;
         }
     }
 }

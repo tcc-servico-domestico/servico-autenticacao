@@ -1,8 +1,8 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
 using ServicoAutenticacao.Domain.Interfaces.Context;
+using ServicoAutenticacao.Domain.Interfaces.Mensageria;
 using ServicoAutenticacao.Domain.Interfaces.Repositories;
 using ServicoAutenticacao.Domain.Interfaces.Services;
-using ServicoAutenticacao.Domain.Interfaces.Mensageria;
 using ServicoAutenticacao.Domain.Services;
 using ServicoAutenticacao.Infra.CrossCutting.AppSettings;
 using ServicoAutenticacao.Infra.CrossCutting.Mensageria;
@@ -12,9 +12,9 @@ using ServicoAutenticacao.Infra.Data.Repositories;
 
 namespace ServicoAutenticacao.Infra.IoC
 {
-    public static class Bootstrapper
+    public static class DependecyInjection
     {
-        public static IServiceCollection ResolveDependencias(this IServiceCollection services, AppSettings appSettings)
+        public static IServiceCollection AddInfra(this IServiceCollection services, AppSettings appSettings)
         {
             services.RegistrarInjecaoDependenciasGerais(appSettings);
             services.RegistrarInjecaoDependenciasRepositories();
@@ -25,7 +25,7 @@ namespace ServicoAutenticacao.Infra.IoC
             return services;
         }
 
-        public static void RegistrarInjecaoDependenciasGerais(this IServiceCollection services, AppSettings appSettings)
+        private static void RegistrarInjecaoDependenciasGerais(this IServiceCollection services, AppSettings appSettings)
         {
             services.AddScoped(provider =>
             {
@@ -36,18 +36,18 @@ namespace ServicoAutenticacao.Infra.IoC
             services.AddScoped<IServicoAutenticacaoDbContext, ServicoAutenticacaoDbContext>();
         }
 
-        public static void RegistrarInjecaoDependenciasRepositories(this IServiceCollection services)
+        private static void RegistrarInjecaoDependenciasRepositories(this IServiceCollection services)
         {
             services.AddScoped<IUsuarioRepository, UsuarioRepository>();
         }
 
-        public static void RegistrarInjecaoDependenciasServicosDomain(this IServiceCollection services)
+        private static void RegistrarInjecaoDependenciasServicosDomain(this IServiceCollection services)
         {
             services.AddScoped<IUsuarioService, UsuarioService>();
 
         }
 
-        public static void RegistrarInjecaoDependenciasAppServices(this IServiceCollection services)
+        private static void RegistrarInjecaoDependenciasAppServices(this IServiceCollection services)
         {
             
         }
