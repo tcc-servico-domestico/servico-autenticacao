@@ -43,7 +43,7 @@ namespace ServicoAutenticacao.Domain.Services
                 JsonConvert.SerializeObject(new Notificacao
                 {
                     PessoaId = usuarioAdd.Id,
-                    CanalId = new Guid("06972b6e-b170-401c-a07f-686becf4bf6a"),
+                    CanalId = new Guid("7e81120b-de69-4cc2-96bc-92a42c8edc10"),
                     TemplateId = new Guid("77a20167-0cb4-4415-8b41-92cf4c227637"),
                     Titulo = "Confirmação de E-mail - HTML",
                     Mensagem = "Confirmação de Email - HTML",
